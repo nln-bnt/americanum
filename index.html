@@ -64,12 +64,12 @@
   .subbar-date { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-dimmer); }
 
   /* PERSONAS RAIL */
-  .personas-rail { padding:20px 48px; border-bottom:1px solid var(--line2); }
+  .personas-rail { padding:24px 48px; border-bottom:1px solid var(--line2); }
   .personas-rail-inner { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(9,1fr); }
   .persona-chip { padding:0 8px; cursor:pointer; transition:opacity 0.2s; display:flex; flex-direction:column; align-items:center; gap:9px; text-decoration:none; }
   .persona-chip:hover { opacity:0.55; }
   .persona-chip.active-filter .pc-avatar { box-shadow:0 0 0 3px var(--bg),0 0 0 5px currentColor; }
-  .pc-avatar { width:42px; height:42px; border-radius:50%; overflow:hidden; border:2px solid; flex-shrink:0; transition:box-shadow 0.2s; }
+  .pc-avatar { width:64px; height:64px; border-radius:50%; overflow:hidden; border:2px solid; flex-shrink:0; transition:box-shadow 0.2s; }
   .pc-avatar img { width:100%; height:100%; object-fit:cover; object-position:top center; }
   .pc-info { display:flex; flex-direction:column; align-items:center; text-align:center; }
   .pc-name { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text); }
@@ -197,7 +197,7 @@
     margin-bottom: 0;
   }
   .sidebar-story {
-    padding: 18px 24px 20px 0; border-right: 1px solid var(--line);
+    padding: 22px 24px 24px 0; border-right: 1px solid var(--line);
     cursor: pointer; transition: opacity 0.2s;
   }
   .sidebar-story:last-child { border-right: none; }
@@ -519,7 +519,7 @@ const PERSONAS = {
   jordan:   { name:'Jordan',   role:'Cultural Liberationist', color:'var(--jordan)',   img:'/images/rhino.png'    },
   chad:     { name:'Chad',     role:'Reactionary Populist',   color:'var(--chad)',     img:'/images/bull.png'     },
   rohit:    { name:'Rohit',    role:'Corporate Nationalist',  color:'var(--rohit)',    img:'/images/elephant.png' },
-  isabella: { name:'Isabella', role:'Humanitarian',           color:'var(--isabella)', img:'/images/jaguar.png'   },
+  isabella: { name:'Isabella', role:'Progressive Humanitarian',           color:'var(--isabella)', img:'/images/jaguar.png'   },
   natasha:  { name:'Natasha',  role:'Shadow Diplomat',        color:'var(--natasha)',  img:'/images/bunny.png'    },
   talon:    { name:'Talon',    role:'Indigenous Sovereign',   color:'var(--talon)',    img:'/images/wolf.png'     },
   kealoha:  { name:'Kealoha',  role:'Pacific Frontiersman',   color:'var(--kealoha)',  img:'/images/shark.png'    },
