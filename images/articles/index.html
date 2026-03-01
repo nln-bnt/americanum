@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Americanum — Dispatches from the Nine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #f5f3ee;
+    --bg2:       #efede8;
+    --bg3:       #e8e6e0;
+    --line:      rgba(0,0,0,0.08);
+    --line2:     rgba(0,0,0,0.16);
+    --text:      #1a1a16;
+    --text-dim:  #5a5a52;
+    --text-dimmer: #9a9a90;
+    --accent:    #8b6914;
+    --fang:     #bb2222;
+    --yasmine:  #2a7a3a;
+    --jordan:   #6b3fa0;
+    --chad:     #2a5a9a;
+    --rohit:    #c45a10;
+    --isabella: #a08010;
+    --natasha:  #188888;
+    --talon:    #7a4a28;
+    --kealoha:  #b83818;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--text); font-family:'Newsreader',Georgia,serif; font-size:17px; line-height:1.6; overflow-x:hidden; }
+  body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:9999; opacity:0.18; }
+
+  /* MASTHEAD */
+  .masthead { border-bottom:1px solid var(--line2); padding:0 48px; position:sticky; top:0; z-index:100; background:rgba(245,243,238,0.96); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
+  .masthead-inner { max-width:1400px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:64px; gap:24px; }
+
+  .masthead-logo a { font-family:'Playfair Display',serif; font-size:17px; font-weight:900; letter-spacing:0.08em; text-transform:uppercase; color:var(--text); text-decoration:none; white-space:nowrap; }
+  .masthead-right { display:flex; align-items:center; justify-content:flex-end; gap:20px; }
+  .masthead-right a { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-dim); text-decoration:none; transition:color 0.2s; }
+  .masthead-right a:hover { color:var(--text); }
+  .subscribe-btn { color:var(--bg)!important; background:var(--text); padding:7px 16px; transition:opacity 0.2s!important; }
+  .subscribe-btn:hover { opacity:0.75!important; }
+
+  /* DATE BAR */
+  /* TICKER RAIL */
+  .ticker-rail { border-bottom:1px solid var(--line2); background:var(--bg2); }
+  .ticker-rail-inner { max-width:1400px; margin:0 auto; display:flex; align-items:stretch; }
+  .ticker-rail-label { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.22em; text-transform:uppercase; color:var(--bg); background:var(--text); padding:12px 20px; display:flex; align-items:center; gap:8px; white-space:nowrap; flex-shrink:0; }
+  .ticker-label-dot { width:5px; height:5px; border-radius:50%; background:var(--bg); animation:blink 1.4s infinite; flex-shrink:0; }
+  .ticker-rail-track { position:relative; flex:1; overflow:hidden; display:flex; align-items:center; }
+  .ticker-item { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:10px; padding:0 48px; white-space:nowrap; opacity:0; transition:opacity 0.6s ease; }
+  .ticker-item.active { opacity:1; }
+  .ticker-item span { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-dim); }
+  .ticker-dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+  /* SUBBAR */
+  .subbar { border-bottom:1px solid var(--line); padding:0 48px; }
+  .subbar-inner { max-width:1400px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; height:38px; }
+  .subbar-project { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-dimmer); text-decoration:none; transition:color 0.2s; }
+  .subbar-project:hover { color:var(--text); }
+  .subbar-date { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-dimmer); }
+
+  /* PERSONAS RAIL */
+  .personas-rail { padding:24px 48px; border-bottom:1px solid var(--line2); }
+  .personas-rail-inner { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(9,1fr); }
+  .persona-chip { padding:0 8px; cursor:pointer; transition:opacity 0.2s; display:flex; flex-direction:column; align-items:center; gap:9px; text-decoration:none; }
+  .persona-chip:hover { opacity:0.55; }
+  .persona-chip.active-filter .pc-avatar { box-shadow:0 0 0 3px var(--bg),0 0 0 5px currentColor; }
+  .pc-avatar { width:64px; height:64px; border-radius:50%; overflow:hidden; border:2px solid; flex-shrink:0; transition:box-shadow 0.2s; }
+  .pc-avatar img { width:100%; height:100%; object-fit:cover; object-position:top center; }
+  .pc-info { display:flex; flex-direction:column; align-items:center; text-align:center; }
+  .pc-name { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text); }
+  .pc-role { font-family:'Space Mono',monospace; font-size:7px; letter-spacing:0.04em; color:var(--text-dimmer); margin-top:2px; }
+
+  /* HERO */
+  /* ── HERO full-bleed ── */
+  .hero { border-bottom:1px solid var(--line2); padding: 24px 48px 0; background: var(--bg); }
+  .hero-inner-wrap { max-width: 1400px; margin: 0 auto; }
+
+  /* outer wrapper — just the image strip */
+  .hero-image-wrap {
+    position: relative;
+    width: 100%;
+    height: clamp(300px, 39vw, 450px);
+    overflow: hidden;
+    cursor: pointer;
+    display: block;
+    border-radius: 3px;
+  }
+  /* the actual background image */
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center center;
+    transition: transform 0.7s ease;
+  }
+  .hero-image-wrap:hover .hero-bg { transform: scale(1.025); }
+
+  /* dark gradient on the LEFT third so text is readable */
+  .hero-grad {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      105deg,
+      rgba(8,8,6,0.88) 0%,
+      rgba(8,8,6,0.70) 28%,
+      rgba(8,8,6,0.30) 52%,
+      rgba(8,8,6,0.00) 72%
+    );
+  }
+
+  /* frosted-glass pill behind text — subtle blur patch */
+  .hero-glass {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: clamp(340px, 46%, 580px);
+    padding: 44px 52px 44px 52px;
+    /* layered: blur the image behind + a semi-transparent tint */
+    backdrop-filter: blur(0px);          /* start at 0; only glass pill blurs */
+    -webkit-backdrop-filter: blur(0px);
+    background: transparent;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+
+  .hero-kicker {
+    font-family: 'Space Mono', monospace; font-size: 8px;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-hed {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.4vw, 52px);
+    font-weight: 900; line-height: 1.04; letter-spacing: -0.01em;
+    color: #fff;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.45);
+    transition: opacity 0.2s;
+  }
+  .hero-image-wrap:hover .hero-hed { opacity: 0.88; }
+  .hero-hed em { font-style: italic; font-weight: 400; }
+  .hero-deck {
+    font-family: 'Newsreader', serif; font-size: 16px;
+    font-weight: 300; line-height: 1.6;
+    color: rgba(255,255,255,0.70);
+    margin-bottom: 22px;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.4);
+  }
+  .hero-byline { display: flex; align-items: center; gap: 11px; }
+  .hero-avatar {
+    width: 36px; height: 36px; border-radius: 50%; overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.5); flex-shrink: 0;
+  }
+  .hero-avatar img { width:100%; height:100%; object-fit:cover; object-position:top center; }
+  .byline-name {
+    font-family: 'Space Mono', monospace; font-size: 9px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.88);
+  }
+  .byline-meta {
+    font-family: 'Space Mono', monospace; font-size: 8px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); margin-top: 3px;
+  }
+
+  /* no-image fallback — plain editorial layout */
+  .hero-image-wrap.no-image {
+    height: auto; background: var(--bg); cursor: default;
+  }
+  .hero-image-wrap.no-image .hero-bg,
+  .hero-image-wrap.no-image .hero-grad { display: none; }
+  .hero-image-wrap.no-image .hero-glass {
+    position: relative; width: 100%; max-width: 760px;
+    padding: 52px 48px; backdrop-filter: none;
+  }
+  .hero-image-wrap.no-image .hero-kicker { color: var(--accent); }
+  .hero-image-wrap.no-image .hero-hed { color: var(--text); text-shadow: none; }
+  .hero-image-wrap.no-image .hero-deck { color: var(--text-dim); text-shadow: none; }
+  .hero-image-wrap.no-image .hero-avatar { border-color: var(--accent); }
+  .hero-image-wrap.no-image .byline-name { color: var(--text); }
+  .hero-image-wrap.no-image .byline-meta { color: var(--text-dimmer); }
+
+  /* sidebar strip below hero image */
+  .hero-sidebar { border-bottom: 1px solid var(--line2); padding: 0 48px; }
+  .hero-sidebar-inner {
+    max-width: 1400px; margin: 0 auto;
+  }
+  .sidebar-label {
+    font-family: 'Space Mono', monospace; font-size: 9px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--text-dimmer); padding: 16px 0 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .sidebar-stories-grid {
+    display: grid; grid-template-columns: repeat(4,1fr);
+  }
+  .sidebar-story {
+    padding: 24px 28px 28px 0; border-right: 1px solid var(--line);
+    cursor: pointer; transition: opacity 0.2s;
+  }
+  .sidebar-story:last-child { border-right: none; }
+  .sidebar-story:hover { opacity: 0.6; }
+  .ss-num { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.15em; color:var(--text-dimmer); margin-bottom:9px; display:block; }
+  .ss-hed { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; line-height:1.25; margin-bottom:10px; color:var(--text); }
+  .ss-byline { display:flex; align-items:center; gap:7px; }
+  .ss-dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; }
+  .ss-author { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-dimmer); }
+
+
+  /* hero sidebar */
+  .hero-sidebar { padding:52px 0 52px 44px; }
+  .sidebar-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-dimmer); margin-bottom:20px; padding-bottom:10px; border-bottom:1px solid var(--line); }
+  .sidebar-story { padding:18px 0; border-bottom:1px solid var(--line); cursor:pointer; transition:opacity 0.2s; }
+  .sidebar-story:hover { opacity:0.6; }
+  .ss-num { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.15em; color:var(--text-dimmer); margin-bottom:7px; }
+  .ss-hed { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; line-height:1.25; margin-bottom:8px; color:var(--text); }
+  .ss-byline { display:flex; align-items:center; gap:7px; }
+  .ss-dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; }
+  .ss-author { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-dimmer); }
+
+  /* FILTER BAR */
+  .filter-bar { border-bottom:1px solid var(--line); padding:0 48px; position:sticky; top:64px; z-index:90; background:rgba(245,243,238,0.97); backdrop-filter:blur(12px); }
+  .filter-bar-inner { max-width:1400px; margin:0 auto; display:flex; overflow-x:auto; scrollbar-width:none; justify-content:center; }
+  .filter-bar-inner::-webkit-scrollbar { display:none; }
+  .filter-btn { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-dimmer); background:none; border:none; padding:15px 18px; cursor:pointer; white-space:nowrap; border-bottom:2px solid transparent; transition:all 0.2s; display:flex; align-items:center; gap:6px; }
+  .filter-btn:hover { color:var(--text); }
+  .filter-btn.active { color:var(--text); border-bottom-color:var(--text); }
+  .fb-dot { width:5px; height:5px; border-radius:50%; }
+
+  /* FEED */
+  .feed { padding:48px; }
+  .feed-inner { max-width:1400px; margin:0 auto; }
+  .section-header { display:flex; align-items:center; gap:20px; padding-bottom:12px; border-bottom:1px solid var(--line2); }
+  .section-title { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:var(--text-dim); white-space:nowrap; }
+  .section-line { flex:1; height:1px; background:var(--line); }
+  .section-count { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.1em; color:var(--text-dimmer); }
+  .feed-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+
+  /* CARDS */
+  .card { background:var(--bg); padding:28px 28px 24px; cursor:pointer; transition:background 0.2s; position:relative; overflow:hidden; display:flex; flex-direction:column; }
+  .card:hover { background:var(--bg2); }
+  .card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--persona-color,transparent); opacity:0; transition:opacity 0.2s; }
+  .card:hover::before { opacity:1; }
+  .card-full      { grid-column:span 12; }
+  .card-half      { grid-column:span 6; }
+  .card-third     { grid-column:span 4; }
+  .card-quarter   { grid-column:span 3; }
+  .card-two-thirds { grid-column:span 8; }
+  .card-tag { display:inline-flex; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:14px; padding:3px 7px; border:1px solid; opacity:0.9; align-self:flex-start; }
+  .card-hed { font-family:'Playfair Display',serif; font-weight:700; line-height:1.15; margin-bottom:10px; color:var(--text); flex:1; }
+  .card-full .card-hed { font-size:36px; max-width:720px; }
+  .card-half .card-hed { font-size:24px; }
+  .card-two-thirds .card-hed { font-size:28px; }
+  .card-third .card-hed { font-size:19px; }
+  .card-quarter .card-hed { font-size:17px; }
+  .card-deck { font-family:'Newsreader',serif; font-weight:300; font-size:15px; line-height:1.55; color:var(--text-dim); margin-bottom:18px; }
+  .card-third .card-deck, .card-quarter .card-deck { display:none; }
+  .card-footer { display:flex; align-items:center; gap:9px; margin-top:auto; }
+  .card-avatar { width:26px; height:26px; border-radius:50%; overflow:hidden; border:1.5px solid; flex-shrink:0; }
+  .card-avatar img { width:100%; height:100%; object-fit:cover; object-position:top center; }
+  .card-author { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-dim); }
+  .card-author span { display:block; color:var(--text-dimmer); font-size:8px; margin-top:1px; }
+  .card-read-time { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-dimmer); margin-left:auto; }
+
+  /* image card */
+  .card-image { padding:0; min-height:300px; position:relative; }
+  .card-image-bg { position:absolute; inset:0; overflow:hidden; }
+  .card-image-bg img { width:100%; height:100%; object-fit:cover; object-position:top center; filter:saturate(0.5) brightness(0.5); transition:filter 0.3s; }
+  .card:hover .card-image-bg img { filter:saturate(0.65) brightness(0.58); }
+  .card-image-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(10,10,8,0.9) 0%,rgba(10,10,8,0.2) 55%,transparent 100%); }
+  .card-image-content { position:relative; z-index:2; padding:28px; margin-top:auto; }
+  .card-image .card-hed { color:#ece9e0; }
+  .card-image .card-author { color:rgba(236,233,224,0.8); }
+  .card-image .card-author span { color:rgba(236,233,224,0.5); }
+  .card-image .card-read-time { color:rgba(236,233,224,0.5); }
+
+  /* opinion strip */
+  .opinion-strip { border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:0 48px; background:var(--bg2); margin:48px -48px 0; }
+  .opinion-strip-inner { max-width:1400px; margin:0 auto; display:grid; }
+  .opinion-label { padding:28px 28px 28px 0; border-right:1px solid var(--line); display:flex; align-items:center; }
+  .opinion-label-text { font-family:'Playfair Display',serif; font-size:13px; font-style:italic; color:var(--text-dimmer); writing-mode:vertical-rl; transform:rotate(180deg); letter-spacing:0.1em; }
+  .opinion-item { padding:24px 28px; border-right:1px solid var(--line); cursor:pointer; transition:background 0.2s; }
+  .opinion-item:hover { background:var(--bg3); }
+  .opinion-item:last-child { border-right:none; }
+  .opinion-quote { font-family:'Playfair Display',serif; font-style:italic; font-size:17px; line-height:1.45; color:var(--text); margin-bottom:14px; }
+
+  /* MODAL */
+  .modal-overlay { position:fixed; inset:0; background:rgba(200,198,192,0.7); z-index:200; display:flex; justify-content:flex-end; opacity:0; pointer-events:none; transition:opacity 0.3s; backdrop-filter:blur(4px); }
+  .modal-overlay.open { opacity:1; pointer-events:all; }
+  .modal-panel { width:700px; max-width:100%; height:100%; background:var(--bg); border-left:1px solid var(--line2); overflow-y:auto; transform:translateX(40px); transition:transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+  .modal-overlay.open .modal-panel { transform:translateX(0); }
+  .modal-header { padding:28px 44px 0; border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--bg); z-index:10; }
+  .modal-close { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-dimmer); background:none; border:none; cursor:pointer; padding:0 0 18px 0; display:flex; align-items:center; gap:8px; transition:color 0.2s; }
+  .modal-close:hover { color:var(--text); }
+  .modal-body { padding:44px; }
+  .modal-kicker { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; margin-bottom:18px; display:flex; align-items:center; gap:10px; }
+  .modal-hed { font-family:'Playfair Display',serif; font-size:34px; font-weight:900; line-height:1.08; margin-bottom:18px; }
+  .modal-deck { font-family:'Newsreader',serif; font-size:17px; font-weight:300; font-style:italic; color:var(--text-dim); line-height:1.6; margin-bottom:28px; padding-bottom:28px; border-bottom:1px solid var(--line); }
+  .modal-byline { display:flex; align-items:center; gap:14px; margin-bottom:28px; }
+  .modal-avatar { width:46px; height:46px; border-radius:50%; overflow:hidden; border:2px solid; flex-shrink:0; }
+  .modal-avatar img { width:100%; height:100%; object-fit:cover; object-position:top center; }
+  .modal-featured-image { width:100%; aspect-ratio:16/9; object-fit:cover; object-position:top center; display:block; margin-bottom:32px; border:1px solid var(--line); }
+  .modal-article { font-family:'Newsreader',serif; font-size:18px; font-weight:300; line-height:1.75; color:var(--text-dim); }
+  .modal-article p { margin-bottom:22px; }
+  .modal-article p:first-child { font-size:18px; color:var(--text-dim); }
+  .modal-article blockquote { border-left:3px solid var(--persona-color,var(--accent)); padding-left:22px; margin:28px 0; font-style:italic; font-size:19px; color:var(--text); line-height:1.5; }
+
+  /* skeleton */
+  .skeleton { background:var(--bg); padding:28px; animation:shimmer 1.6s infinite; }
+  .skel-tag { height:20px; width:80px; background:var(--bg3); margin-bottom:14px; border-radius:2px; }
+  .skel-hed { height:22px; background:var(--bg3); margin-bottom:8px; border-radius:2px; }
+  .skel-hed2 { height:22px; width:70%; background:var(--bg3); margin-bottom:20px; border-radius:2px; }
+  .skel-foot { height:26px; width:120px; background:var(--bg3); margin-top:auto; border-radius:2px; }
+  @keyframes shimmer { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+  /* footer */
+  footer { border-top:1px solid var(--line2); padding:48px; }
+  .footer-inner { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:48px; padding-bottom:40px; border-bottom:1px solid var(--line); }
+  .footer-logo { font-family:'Playfair Display',serif; font-size:20px; font-weight:900; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:10px; }
+  .footer-desc { font-family:'Newsreader',serif; font-size:14px; font-weight:300; color:var(--text-dim); line-height:1.6; }
+  .footer-col h4 { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-dimmer); margin-bottom:14px; }
+  .footer-col a { display:block; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.08em; color:var(--text-dim); text-decoration:none; margin-bottom:9px; transition:color 0.2s; }
+  .footer-col a:hover { color:var(--text); }
+  .footer-bottom { padding-top:22px; display:flex; justify-content:space-between; align-items:center; }
+  .footer-bottom p, .footer-bottom a { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-dimmer); text-decoration:none; }
+  .footer-bottom a:hover { color:var(--accent); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .card { animation:fadeUp 0.45s ease both; }
+  .card:nth-child(1){animation-delay:0.04s}
+  .card:nth-child(2){animation-delay:0.09s}
+  .card:nth-child(3){animation-delay:0.14s}
+  .card:nth-child(4){animation-delay:0.19s}
+  .card:nth-child(5){animation-delay:0.24s}
+  .card:nth-child(6){animation-delay:0.29s}
+  .card:nth-child(7){animation-delay:0.34s}
+  .card:nth-child(8){animation-delay:0.39s}
+
+  @media(max-width:900px) {
+    /* masthead */
+    .masthead { padding:0 20px; }
+    .masthead-inner { height:56px; }
+    .masthead-brand .masthead-sub { display:none; }
+    .masthead-date { display:none; }
+    .masthead-right a:not(.subscribe-btn) { display:none; }
+
+    /* subbar / hero / sidebar */
+    .hero { padding: 12px 20px 0; }
+    .hero-inner-wrap { border-radius: 4px; overflow: hidden; }
+    .hero-image-wrap { height: 54vw !important; min-height: 220px; }
+    .hero-glass {
+      width: 100% !important;
+      padding: 20px 20px 24px !important;
+    }
+    .hero-hed { font-size: clamp(20px, 5.5vw, 32px) !important; }
+    .hero-deck { display: none; }
+    .hero-sidebar { padding: 0 20px; }
+    .sidebar-stories-grid { grid-template-columns: 1fr 1fr; gap: 0 16px; }
+    .sidebar-label { font-size: 8px; }
+
+    /* personas */
+    .personas-rail { padding: 14px 20px; overflow-x: auto; }
+    .personas-rail-inner { grid-template-columns: repeat(9, 56px); gap: 0; width: max-content; }
+    .pc-avatar { width: 44px; height: 44px; }
+    .pc-role { display: none; }
+
+    /* ticker */
+    .ticker-rail { padding: 0; }
+    .ticker-rail-inner { padding: 0; }
+
+    /* filter bar */
+    .filter-bar { padding: 0 20px; top: 56px; }
+
+    /* feed */
+    .feed { padding: 20px; }
+    .card-half,.card-third,.card-quarter,.card-two-thirds { grid-column: span 12; }
+    .opinion-strip { margin: 20px -20px 0; padding: 0 20px; }
+    .opinion-label { display: none; }
+    .opinion-strip-inner { grid-template-columns: 1fr !important; }
+    .opinion-item { border-right: none; border-bottom: 1px solid var(--line); }
+
+    /* footer */
+    .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+    footer { padding: 32px 20px; }
+
+    /* modal */
+    .modal-panel { width: 100%; }
+    .modal-body { padding: 24px 20px; }
+    .modal-hed { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+
+    <div class="masthead-logo"><a href="#">The Americanum</a></div>
+    <div class="masthead-right">
+      <a href="#">Archive</a>
+      <a href="#">Support</a>
+      <a href="#">About</a>
+      <a href="#" class="subscribe-btn">Subscribe</a>
+    </div>
+  </div>
+</header>
+
+
+
+<div class="subbar">
+  <div class="subbar-inner">
+    <a href="https://pax.nulus.co" target="_blank" class="subbar-project">Project Americana</a>
+    <span class="subbar-date" id="live-date"></span>
+  </div>
+</div>
+
+<div class="personas-rail">
+  <div class="personas-rail-inner" id="personas-rail"></div>
+</div>
+
+<div class="ticker-rail">
+  <div class="ticker-rail-inner">
+    <div class="ticker-rail-label">
+      <span class="ticker-label-dot"></span>
+      Live
+    </div>
+    <div class="ticker-rail-track" id="ticker"></div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-inner-wrap">
+  <!-- full-bleed image strip -->
+  <div class="hero-image-wrap no-image" id="hero-main">
+    <div class="hero-bg" id="hero-bg"></div>
+    <div class="hero-grad"></div>
+    <div class="hero-glass" id="hero-glass">
+      <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dimmer)">Loading…</span>
+    </div>
+  </div>
+  </div><!-- /hero-inner-wrap -->
+  <!-- sidebar stories strip -->
+  <div class="hero-sidebar">
+    <div class="hero-sidebar-inner">
+      <div class="sidebar-label">Also This Issue</div>
+      <div class="sidebar-stories-grid" id="sidebar-stories"></div>
+    </div>
+  </div>
+</section>
+
+<div class="filter-bar">
+  <div class="filter-bar-inner" id="filter-bar">
+    <button class="filter-btn active" onclick="setFilter('all',null,this)">All Dispatches</button>
+  </div>
+</div>
+
+<main class="feed">
+  <div class="feed-inner">
+    <div class="section-header">
+      <span class="section-title">Latest Dispatches</span>
+      <div class="section-line"></div>
+      <span class="section-count" id="article-count"></span>
+    </div>
+    <div id="main-grid" class="feed-grid">
+      <div class="skeleton card card-third"><div class="skel-tag"></div><div class="skel-hed"></div><div class="skel-hed2"></div><div class="skel-foot"></div></div>
+      <div class="skeleton card card-third"><div class="skel-tag"></div><div class="skel-hed"></div><div class="skel-hed2"></div><div class="skel-foot"></div></div>
+      <div class="skeleton card card-third"><div class="skel-tag"></div><div class="skel-hed"></div><div class="skel-hed2"></div><div class="skel-foot"></div></div>
+    </div>
+    <div class="opinion-strip" id="opinion-strip" style="display:none">
+      <div class="opinion-strip-inner" id="opinion-inner">
+        <div class="opinion-label"><span class="opinion-label-text">Opinion</span></div>
+      </div>
+    </div>
+
+    <div class="section-header" id="in-depth-header" style="margin-top:48px;display:none">
+      <span class="section-title">In Depth</span>
+      <div class="section-line"></div>
+    </div>
+    <div id="in-depth-grid" class="feed-grid" style="display:none"></div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">The Americanum</div>
+      <p class="footer-desc">Dispatches from nine nodes of American power. Independent. Unmediated. Unresolved.</p>
+    </div>
+    <div class="footer-col">
+      <h4>The Nine</h4>
+      <a href="#">Fang — Silicon Futurist</a>
+      <a href="#">Rohit — Corporate Nationalist</a>
+      <a href="#">Isabella — Humanitarian</a>
+      <a href="#">Jordan — Cultural Liberationist</a>
+      <a href="#">Yasmine — Postcolonial Reformer</a>
+    </div>
+    <div class="footer-col">
+      <h4>&nbsp;</h4>
+      <a href="#">Chad — Reactionary Populist</a>
+      <a href="#">Natasha — Shadow Diplomat</a>
+      <a href="#">Kealoha — Pacific Frontiersman</a>
+      <a href="#">Talon — Indigenous Sovereign</a>
+    </div>
+    <div class="footer-col">
+      <h4>Project</h4>
+      <a href="https://pax.nulus.co" target="_blank">↖ pax.nulus.co</a>
+      <a href="https://projectamericana.crd.co" target="_blank">↖ projectamericana.crd.co</a>
+      <a href="#">Archive</a>
+      <a href="#">About</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 The Americanum — A Project Americana Publication</p>
+    <a href="https://pax.nulus.co" target="_blank">Part of Project Americana ↗</a>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal-panel">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal()">← Back to Americanum</button>
+    </div>
+    <div class="modal-body" id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// CONFIGURATION
+// Replace with your Google Sheet ID once the sheet is set up.
+// The sheet must be published to the web (File → Share → Publish to web → Entire document → CSV).
+//
+// Required column headers (row 1):
+//   id | persona | headline | deck | body | topic | date | readtime | image_url | featured | ticker
+//
+//   persona   — lowercase key: fang, yasmine, jordan, chad, rohit, isabella, natasha, talon, kealoha
+//   featured  — write TRUE for the hero/lead article (only one row)
+//   ticker    — short news item text for the ticker bar (leave blank for most rows)
+//   image_url — publicly accessible image URL (Google Drive public share, Cloudinary, etc.)
+//   body      — full article text; separate paragraphs with a blank line (double newline)
+// ═══════════════════════════════════════════════════════
+const SHEET_ID = 'YOUR_GOOGLE_SHEET_ID_HERE';
+const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+
+// ═══════════════════════════════════════════════════════
+// PERSONA MAP — do not edit (matches project spec)
+// ═══════════════════════════════════════════════════════
+const PERSONAS = {
+  fang:     { name:'Fang',     role:'Silicon Futurist',       color:'var(--fang)',     img:'/images/dragon.png'   },
+  yasmine:  { name:'Yasmine',  role:'Postcolonial Reformer',  color:'var(--yasmine)',  img:'/images/peacock.png'  },
+  jordan:   { name:'Jordan',   role:'Cultural Liberationist', color:'var(--jordan)',   img:'/images/rhino.png'    },
+  chad:     { name:'Chad',     role:'Reactionary Populist',   color:'var(--chad)',     img:'/images/bull.png'     },
+  rohit:    { name:'Rohit',    role:'Corporate Nationalist',  color:'var(--rohit)',    img:'/images/elephant.png' },
+  isabella: { name:'Isabella', role:'Progressive Humanitarian',           color:'var(--isabella)', img:'/images/jaguar.png'   },
+  natasha:  { name:'Natasha',  role:'Shadow Diplomat',        color:'var(--natasha)',  img:'/images/bunny.png'    },
+  talon:    { name:'Talon',    role:'Indigenous Sovereign',   color:'var(--talon)',    img:'/images/wolf.png'     },
+  kealoha:  { name:'Kealoha',  role:'Pacific Frontiersman',   color:'var(--kealoha)',  img:'/images/shark.png'    },
+};
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let allArticles = [];
+let activeFilter = { type:'all', value:null };
+
+// ═══════════════════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('live-date').textContent =
+    new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  buildPersonasRail();
+  loadData();
+});
+
+function buildPersonasRail() {
+  document.getElementById('personas-rail').innerHTML =
+    Object.entries(PERSONAS).map(([key,p]) => `
+      <a href="#" class="persona-chip" id="chip-${key}"
+         onclick="setFilter('persona','${key}',null);return false;"
+         style="color:${p.color}">
+        <div class="pc-avatar" style="border-color:${p.color}">
+          <img src="${p.img}" alt="${p.name}">
+        </div>
+        <div class="pc-info">
+          <span class="pc-name">${p.name}</span>
+          <span class="pc-role">${p.role}</span>
+        </div>
+      </a>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════
+async function loadData() {
+  if (SHEET_ID === 'YOUR_GOOGLE_SHEET_ID_HERE') {
+    allArticles = DEMO_ARTICLES;
+    render();
+    return;
+  }
+  try {
+    const res  = await fetch(SHEET_URL);
+    const text = await res.text();
+    const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/)[1]);
+    const cols = json.table.cols.map(c => c.label.toLowerCase().trim());
+    allArticles = json.table.rows
+      .map(row => {
+        const obj = {};
+        cols.forEach((col,i) => { obj[col] = row.c[i] ? (row.c[i].v ?? row.c[i].f ?? '') : ''; });
+        return obj;
+      })
+      .filter(a => a.headline);
+    render();
+  } catch(e) {
+    console.error('Sheet load error:', e);
+    allArticles = DEMO_ARTICLES;
+    render();
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════
+function render() {
+  buildTicker();
+  buildHero();
+  buildTopicFilters();
+  buildGrid();
+  buildOpinionStrip();
+  buildInDepth();
+  updateCount();
+}
+
+function buildTicker() {
+  const items = allArticles.filter(a => a.ticker);
+  if (!items.length) return;
+  const el = document.getElementById('ticker');
+  el.innerHTML = items.map((a,i) => {
+    const p = PERSONAS[a.persona?.toLowerCase()] || {};
+    return `<div class="ticker-item ${i===0?'active':''}">
+      <div class="ticker-dot ${i===0?'live':''}" style="background:${p.color||'var(--text-dimmer)'}"></div>
+      <span>${a.ticker}</span>
+    </div>`;
+  }).join('');
+  const els = el.querySelectorAll('.ticker-item');
+  if (els.length > 1) {
+    let idx = 0;
+    setInterval(() => {
+      els[idx].classList.remove('active');
+      idx = (idx+1) % els.length;
+      els[idx].classList.add('active');
+    }, 4000);
+  }
+}
+
+function buildHero() {
+  const hero = allArticles.find(a => String(a.featured).toUpperCase()==='TRUE') || allArticles[0];
+  if (!hero) return;
+  const p = PERSONAS[hero.persona?.toLowerCase()] || {};
+  const hm  = document.getElementById('hero-main');
+  const bg  = document.getElementById('hero-bg');
+  const glass = document.getElementById('hero-glass');
+  const hasImg = !!hero.image_url;
+
+  if (hasImg) {
+    bg.style.backgroundImage = `url('${hero.image_url}')`;
+    hm.classList.remove('no-image');
+  } else {
+    hm.classList.add('no-image');
+  }
+
+  glass.innerHTML = `
+    <div class="hero-kicker">
+      <span style="color:${hasImg ? 'rgba(255,255,255,0.55)' : (p.color||'var(--accent)')}">● ${p.name||hero.persona}</span>
+      <span>— Lead Essay — ${hero.topic||'Essay'}</span>
+    </div>
+    <h1 class="hero-hed">${hero.headline}</h1>
+    ${hero.deck ? `<p class="hero-deck">${hero.deck}</p>` : ''}
+    <div class="hero-byline">
+      <div class="hero-avatar" style="border-color:${hasImg ? 'rgba(255,255,255,0.5)' : p.color}">
+        <img src="${p.img}" alt="${p.name}">
+      </div>
+      <div>
+        <div class="byline-name">${p.name} — ${p.role}</div>
+        <div class="byline-meta">${hero.date||''} · ${hero.readtime||''}</div>
+      </div>
+    </div>
+  `;
+  hm.onclick = () => openModal(hero);
+
+  const others = allArticles.filter(a=>a!==hero).slice(0,4);
+  document.getElementById('sidebar-stories').innerHTML = others.map((a,i) => {
+    const sp = PERSONAS[a.persona?.toLowerCase()] || {};
+    return `<div class="sidebar-story" onclick='openModal(${safeJSON(a)})'>
+      <div class="ss-num">0${i+2}</div>
+      <div class="ss-hed">${a.headline}</div>
+      <div class="ss-byline">
+        <div class="ss-dot" style="background:${sp.color||'var(--text-dimmer)'}"></div>
+        <span class="ss-author">${sp.name||a.persona} — ${a.readtime||''}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function buildTopicFilters() {
+  const topics = [...new Set(allArticles.map(a=>a.topic).filter(Boolean))];
+  const bar = document.getElementById('filter-bar');
+  bar.querySelectorAll('.topic-btn').forEach(b=>b.remove());
+  topics.forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn topic-btn';
+    btn.innerHTML = t;
+    btn.onclick = () => setFilter('topic', t, btn);
+    bar.appendChild(btn);
+  });
+}
+
+function buildGrid() {
+  const articles = filteredArticles();
+  const grid = document.getElementById('main-grid');
+  if (!articles.length) {
+    grid.innerHTML = `<div style="grid-column:span 12;padding:48px;text-align:center;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dimmer)">No articles found.</div>`;
+    return;
+  }
+  const sizes = ['card-two-thirds','card-third','card-third','card-third','card-third',
+                 'card-quarter','card-quarter','card-quarter','card-quarter',
+                 'card-half','card-half','card-third','card-third','card-third'];
+  grid.innerHTML = articles.map((a,i) => {
+    const p    = PERSONAS[a.persona?.toLowerCase()] || {};
+    const size = sizes[i] || 'card-third';
+    const useImgCard = a.image_url && i < 2;
+    if (useImgCard) {
+      return `<div class="card card-image ${size}" style="--persona-color:${p.color}"
+           data-persona="${a.persona?.toLowerCase()}" data-topic="${a.topic}"
+           onclick='openModal(${safeJSON(a)})'>
+        <div class="card-image-bg"><img src="${a.image_url}" alt=""></div>
+        <div class="card-image-overlay"></div>
+        <div class="card-image-content">
+          <div class="card-tag" style="color:${p.color};border-color:${p.color}">
+            <span>●</span> ${p.name||a.persona} · ${a.topic||''}
+          </div>
+          <h2 class="card-hed">${a.headline}</h2>
+          <div class="card-footer">
+            <div class="card-avatar" style="border-color:${p.color}"><img src="${p.img}" alt=""></div>
+            <div class="card-author">${p.name||a.persona}<span>${p.role||''}</span></div>
+            <span class="card-read-time">${a.readtime||''}</span>
+          </div>
+        </div>
+      </div>`;
+    }
+    return `<div class="card ${size}" style="--persona-color:${p.color}"
+         data-persona="${a.persona?.toLowerCase()}" data-topic="${a.topic}"
+         onclick='openModal(${safeJSON(a)})'>
+      <div class="card-tag" style="color:${p.color};border-color:${p.color}">
+        <span>●</span> ${p.name||a.persona} · ${a.topic||''}
+      </div>
+      <h2 class="card-hed">${a.headline}</h2>
+      ${a.deck && !['card-quarter','card-third'].includes(size) ? `<p class="card-deck">${a.deck}</p>` : ''}
+      <div class="card-footer">
+        <div class="card-avatar" style="border-color:${p.color}"><img src="${p.img}" alt=""></div>
+        <div class="card-author">${p.name||a.persona}<span>${p.role||''}</span></div>
+        <span class="card-read-time">${a.readtime||''}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function buildOpinionStrip() {
+  const opinions = allArticles.filter(a => a.topic?.toLowerCase()==='opinion').slice(0,3);
+  if (opinions.length < 2) return;
+  const inner = document.getElementById('opinion-inner');
+  inner.style.gridTemplateColumns = `100px repeat(${opinions.length},1fr)`;
+  // remove old opinion items
+  inner.querySelectorAll('.opinion-item').forEach(e=>e.remove());
+  opinions.forEach(a => {
+    const p = PERSONAS[a.persona?.toLowerCase()] || {};
+    const div = document.createElement('div');
+    div.className = 'opinion-item';
+    div.onclick = () => openModal(a);
+    div.innerHTML = `
+      <div class="card-tag" style="color:${p.color};border-color:${p.color};margin-bottom:12px">
+        <span>●</span> ${p.name||a.persona}
+      </div>
+      <p class="opinion-quote">${a.deck||a.headline}</p>
+      <div class="card-footer" style="margin-top:0">
+        <div class="card-avatar" style="border-color:${p.color};width:22px;height:22px">
+          <img src="${p.img}" alt="">
+        </div>
+        <span class="card-author" style="font-size:8px">${p.name} · Opinion</span>
+      </div>`;
+    inner.appendChild(div);
+  });
+  document.getElementById('opinion-strip').style.display = '';
+}
+
+function buildInDepth() {
+  // Show remaining articles (beyond first 9) as an "In Depth" second grid
+  const all = filteredArticles();
+  const extra = all.slice(9);
+  const header = document.getElementById('in-depth-header');
+  const grid   = document.getElementById('in-depth-grid');
+  if (!extra.length || !header || !grid) return;
+  header.style.display = '';
+  grid.style.display   = '';
+  const sizes = ['card-half','card-half','card-third','card-third','card-third'];
+  grid.innerHTML = extra.map((a,i) => {
+    const p    = PERSONAS[a.persona?.toLowerCase()] || {};
+    const size = sizes[i] || 'card-third';
+    return `<div class="card ${size}" style="--persona-color:${p.color}"
+         data-persona="${a.persona?.toLowerCase()}" data-topic="${a.topic}"
+         onclick='openModal(${safeJSON(a)})'>
+      <div class="card-tag" style="color:${p.color};border-color:${p.color}">
+        <span>●</span> ${p.name||a.persona} · ${a.topic||''}
+      </div>
+      <h2 class="card-hed">${a.headline}</h2>
+      ${a.deck && !['card-quarter','card-third'].includes(size) ? `<p class="card-deck">${a.deck}</p>` : ''}
+      <div class="card-footer">
+        <div class="card-avatar" style="border-color:${p.color}"><img src="${p.img}" alt=""></div>
+        <div class="card-author">${p.name||a.persona}<span>${p.role||''}</span></div>
+        <span class="card-read-time">${a.readtime||''}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateCount() {
+  const n = filteredArticles().length;
+  document.getElementById('article-count').textContent = `${n} article${n!==1?'s':''}`;
+}
+
+function filteredArticles() {
+  if (activeFilter.type==='all')     return allArticles;
+  if (activeFilter.type==='persona') return allArticles.filter(a=>a.persona?.toLowerCase()===activeFilter.value);
+  if (activeFilter.type==='topic')   return allArticles.filter(a=>a.topic===activeFilter.value);
+  return allArticles;
+}
+
+// ═══════════════════════════════════════════════════════
+// FILTER
+// ═══════════════════════════════════════════════════════
+function setFilter(type, value, btn) {
+  activeFilter = { type, value };
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.persona-chip').forEach(c=>c.classList.remove('active-filter'));
+  if (type==='persona') document.getElementById('chip-'+value)?.classList.add('active-filter');
+  buildGrid();
+  updateCount();
+}
+
+// ═══════════════════════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════════════════════
+function openModal(article) {
+  const p = PERSONAS[article.persona?.toLowerCase()] || {};
+  const c = document.getElementById('modal-content');
+  c.style.setProperty('--persona-color', p.color||'var(--accent)');
+  c.innerHTML = `
+    <div class="modal-kicker" style="color:${p.color}">
+      <span>●</span> ${p.name||article.persona} — ${article.topic||''}
+    </div>
+    <h2 class="modal-hed">${article.headline}</h2>
+    ${article.deck?`<p class="modal-deck">${article.deck}</p>`:''}
+    <div class="modal-byline">
+      <div class="modal-avatar" style="border-color:${p.color}">
+        <img src="${p.img}" alt="${p.name}">
+      </div>
+      <div>
+        <div class="byline-name">${p.name} — ${p.role}</div>
+        <div class="byline-meta">${article.date||''} · ${article.readtime||''}</div>
+      </div>
+    </div>
+    ${article.image_url?`<img class="modal-featured-image" src="${article.image_url}" alt="">`:''}
+    <div class="modal-article">${formatBody(article.body||'')}</div>
+  `;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function formatBody(text) {
+  if (text.includes('<p>')) return text;
+  return text.split(/\n\n+/).filter(Boolean).map(p=>`<p>${p.trim()}</p>`).join('');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function handleOverlayClick(e) { if (e.target===document.getElementById('modal')) closeModal(); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+function safeJSON(obj) { return JSON.stringify(obj).replace(/'/g,"&#39;").replace(/"/g,'&quot;'); }
+
+// ═══════════════════════════════════════════════════════
+// DEMO DATA — replace with Google Sheet
+// ═══════════════════════════════════════════════════════
+const DEMO_ARTICLES = [
+  { persona:'fang', headline:'Democracy Is Not a Debugging Tool',
+    deck:'The question is not whether AI will govern. The question is whether the people writing the weights will admit it.',
+    body:`The feudal lord owned land. The industrial baron owned machines. The next ruling class owns compute — and unlike land or machines, most people don't even know it's being taken.\n\nI'm not describing a dystopia. I'm describing what's already happening. The architecture of intelligence is being built right now, by a small number of people, according to a small number of assumptions.\n\nLet me be precise. When I talk about compute aristocracy, I'm not talking about who has the best consumer device. I'm talking about who controls the training runs. Who owns the data centers. Who can afford the hundred-million-dollar models. That number is shrinking. The concentration is real and accelerating.`,
+    topic:'Tech', date:'Feb 27, 2026', readtime:'8 min', image_url:'dragon.png', featured:'TRUE',
+    ticker:"Fang's Axis platform clears $2B Series C — Silicon Valley silent" },
+  { persona:'chad', headline:"What the Border Looks Like When Nobody's Watching",
+    deck:"I drove it myself. Three hundred miles of open ground. Here's what they don't put on the nightly news.",
+    body:`I did it last month. Drove from Del Rio to El Paso on the Texas side. Ranch roads, mostly. The kind that don't show up clean on Google Maps.\n\nThe ranchers I talked to aren't ideologues. They're tired. They've been tired for years. They've called the federal government and gotten voicemail.\n\nThat's all. Just an acknowledgment. You'd be amazed how rare it is.`,
+    topic:'Politics', date:'Feb 25, 2026', readtime:'6 min', image_url:'', featured:'',
+    ticker:'Talon leads Senate polling in three-state Great Plains district' },
+  { persona:'yasmine', headline:'The Palestinian News Desk That Never Existed',
+    deck:"Western media didn't fail to cover the story. It was designed not to.",
+    body:`Every major American newsroom has a correspondent in Tel Aviv. Almost none has one stationed in Gaza City. The asymmetry is not accidental. It is structural.\n\nI run a media conglomerate. I understand how these decisions get made. They are made by people who have internalized, often unconsciously, a hierarchy of which lives constitute news.\n\nThis is why I built what I built. The Palestinian news desk that never existed — I intend to build it.`,
+    topic:'Media', date:'Feb 24, 2026', readtime:'7 min', image_url:'', featured:'', ticker:'' },
+  { persona:'jordan', headline:'On Owning vs. Being Owned By the Culture',
+    deck:"There's a difference between being celebrated and being exploited. Most Black artists don't know the line until it's too late.",
+    body:`I want to talk about the machine. Not the music — the machine that processes the music.\n\nWhat I've been building for the last eight years is a parallel infrastructure. Labels that don't hold masters hostage. Streaming platforms where the royalty math is visible.\n\nPeople call it Black capitalism and use it as a critique. I accept the label.`,
+    topic:'Culture', date:'Feb 26, 2026', readtime:'9 min', image_url:'', featured:'',
+    ticker:'Jordan closes $300M acquisition of regional broadcast network' },
+  { persona:'rohit', headline:'Price Controls Are a Death Sentence for American Innovation',
+    deck:"Every drug that doesn't get made because the margin wasn't there is a patient who doesn't get treated.",
+    body:`A new molecular entity costs somewhere between two and three billion dollars to bring from discovery to approval. That number includes the failures, which outnumber the successes by roughly ten to one.\n\nWhen a politician proposes price controls, what they're proposing is a cap on the return that makes that risk worth taking. Reduce the return, and the capital goes elsewhere.`,
+    topic:'Economy', date:'Feb 23, 2026', readtime:'5 min', image_url:'', featured:'', ticker:'' },
+  { persona:'talon', headline:'The Treaty Is Not a Historical Document',
+    deck:'The Fort Laramie Treaty of 1868 is active law. It has never been repealed.',
+    body:`People use the word "historical" to mean "resolved." The treaty of 1868 is not resolved.\n\nThe money sits in a trust account, accumulating interest, now worth over a billion dollars. It sits there because money was never the point.\n\nI'm not running for the Senate to join an institution. I'm running to introduce a sovereign foreign policy of the Lakota people into its chambers.`,
+    topic:'Politics', date:'Feb 21, 2026', readtime:'10 min', image_url:'', featured:'', ticker:'' },
+  { persona:'isabella', headline:"Hollywood Didn't Run Out of Immigrant Stories — It Ran Out of Courage",
+    deck:'Every year another diversity report. Every year another round of congratulations. And every year the stories that matter get shelved.',
+    body:`I've been in rooms where immigrant stories get greenlit. I've also been in rooms where they get killed.\n\nThe first meeting: enthusiasm. The second meeting: notes. Can we broaden the audience?\n\nI launched my production company to opt out of that process.`,
+    topic:'Culture', date:'Feb 26, 2026', readtime:'6 min', image_url:'', featured:'', ticker:'' },
+  { persona:'natasha', headline:"Sanctions Are Theater. Here's Who Directs It.",
+    deck:'Every sanctions regime produces three things: black markets, exemptions, and a consulting industry.',
+    body:`The purpose of most sanctions regimes is not behavioral change. It is the production of leverage. The sanction is not the end. The waiver is the end.\n\nDeniability is the currency. Clarity is the liability. That's not cynicism — that's how durable arrangements get made.\n\nI've spent six years in this ecosystem. I've watched sanctions designed to punish end up enriching the people they targeted.`,
+    topic:'Geopolitics', date:'Feb 22, 2026', readtime:'5 min', image_url:'', featured:'', ticker:'' },
+  { persona:'kealoha', headline:'The Ocean Floor Is the Next Real Estate Market',
+    deck:"Seventy percent of Earth's surface is underwater and almost none of it is economically mapped.",
+    body:`The deep ocean floor contains more mineral wealth than every terrestrial mine currently operating, combined, many times over.\n\nThe question is not whether this will be developed. It will be. The question is whether it will be developed by actors with accountability.\n\nThe frontier is real. The question is who builds it honestly.`,
+    topic:'Economy', date:'Feb 20, 2026', readtime:'7 min', image_url:'', featured:'', ticker:'' },
+  { persona:'rohit', headline:'The Government Has Never Invented a Drug',
+    deck:'It has only ever delayed them. A short argument against the FDA reform bill.',
+    body:`The bill on the floor this week would give the FDA authority to set price ceilings on drugs in their first three years post-approval.\n\nIt means the capital calculation for early-stage drug development changes immediately. The risk stays the same. The upside shrinks.\n\nInvestors are not obligated to fund medical research. They do it because the math works.`,
+    topic:'Opinion', date:'Feb 19, 2026', readtime:'4 min', image_url:'', featured:'', ticker:'' },
+  { persona:'yasmine', headline:'Calling It a Conflict Is the First Act of Censorship',
+    deck:'Language is not neutral. The words we use to describe power imbalances reproduce those imbalances.',
+    body:`When a newsroom describes an occupation as a "conflict," it has already taken a side.\n\nThe choice of vocabulary is an editorial act. It is a political act. It is one of the most consequential things a journalist does, and it is treated as though it is merely a style preference.`,
+    topic:'Opinion', date:'Feb 17, 2026', readtime:'5 min', image_url:'', featured:'', ticker:'' },
+  { persona:'talon', headline:'You Cannot Reform a System Whose Function Is Your Dispossession',
+    deck:'A note on why I am running inside a system I fundamentally reject.',
+    body:`People ask me how I can run for the Senate while arguing that the United States government has no legitimate authority over Lakota territory.\n\nThe answer is that I'm not running to legitimize the system. I'm running to introduce a jurisdictional argument that has never been made on that floor.\n\nThe Senate chamber is a room. Rooms can hold any argument you are strong enough to carry into them.`,
+    topic:'Opinion', date:'Feb 15, 2026', readtime:'6 min', image_url:'', featured:'', ticker:'' },
+];
+</script>
+</body>
+</html>
