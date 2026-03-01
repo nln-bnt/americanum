@@ -84,7 +84,7 @@
   .hero-image-wrap {
     position: relative;
     width: 100%;
-    height: clamp(400px, 52vw, 600px);
+    height: clamp(300px, 39vw, 450px);
     overflow: hidden;
     cursor: pointer;
     display: block;
@@ -187,23 +187,24 @@
   .hero-sidebar { border-bottom: 1px solid var(--line2); padding: 0 48px; }
   .hero-sidebar-inner {
     max-width: 1400px; margin: 0 auto;
-    display: grid; grid-template-columns: repeat(4,1fr);
   }
   .sidebar-label {
     font-family: 'Space Mono', monospace; font-size: 9px;
     letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--text-dimmer); padding: 14px 0 10px;
-    border-bottom: 1px solid var(--line); grid-column: span 4;
-    margin-bottom: 0;
+    color: var(--text-dimmer); padding: 16px 0 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .sidebar-stories-grid {
+    display: grid; grid-template-columns: repeat(4,1fr);
   }
   .sidebar-story {
-    padding: 22px 24px 24px 0; border-right: 1px solid var(--line);
+    padding: 24px 28px 28px 0; border-right: 1px solid var(--line);
     cursor: pointer; transition: opacity 0.2s;
   }
   .sidebar-story:last-child { border-right: none; }
   .sidebar-story:hover { opacity: 0.6; }
-  .ss-num { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.15em; color:var(--text-dimmer); margin-bottom:7px; }
-  .ss-hed { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; line-height:1.25; margin-bottom:8px; color:var(--text); }
+  .ss-num { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.15em; color:var(--text-dimmer); margin-bottom:9px; display:block; }
+  .ss-hed { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; line-height:1.25; margin-bottom:10px; color:var(--text); }
   .ss-byline { display:flex; align-items:center; gap:7px; }
   .ss-dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; }
   .ss-author { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-dimmer); }
@@ -339,21 +340,56 @@
   .card:nth-child(8){animation-delay:0.39s}
 
   @media(max-width:900px) {
-    .masthead,.hero,.datebar,.filter-bar { padding-left:24px; padding-right:24px; }
-    .masthead-left { display:none; }
-    .hero { padding: 16px 24px 0 !important; }
-    .hero-image-wrap { height: clamp(300px, 65vw, 460px) !important; }
-    .hero-glass { width: 90% !important; padding: 28px 24px !important; }
-    .hero-sidebar { padding: 0 24px; }
-    .hero-sidebar-inner { grid-template-columns: 1fr 1fr; }
-    .personas-rail { padding:16px 24px; }
-    .feed { padding:24px; }
-    .opinion-strip { margin:24px -24px 0; padding:0 24px; }
-    .opinion-label { display:none; }
-    .card-half,.card-third,.card-quarter,.card-two-thirds { grid-column:span 12; }
-    .footer-inner { grid-template-columns:1fr 1fr; gap:32px; }
-    .modal-panel { width:100%; }
-    .modal-body { padding:28px 24px; }
+    /* masthead */
+    .masthead { padding:0 20px; }
+    .masthead-inner { height:56px; }
+    .masthead-brand .masthead-sub { display:none; }
+    .masthead-date { display:none; }
+    .masthead-right a:not(.subscribe-btn) { display:none; }
+
+    /* subbar / hero / sidebar */
+    .hero { padding: 12px 20px 0; }
+    .hero-inner-wrap { border-radius: 4px; overflow: hidden; }
+    .hero-image-wrap { height: 54vw !important; min-height: 220px; }
+    .hero-glass {
+      width: 100% !important;
+      padding: 20px 20px 24px !important;
+    }
+    .hero-hed { font-size: clamp(20px, 5.5vw, 32px) !important; }
+    .hero-deck { display: none; }
+    .hero-sidebar { padding: 0 20px; }
+    .sidebar-stories-grid { grid-template-columns: 1fr 1fr; gap: 0 16px; }
+    .sidebar-label { font-size: 8px; }
+
+    /* personas */
+    .personas-rail { padding: 14px 20px; overflow-x: auto; }
+    .personas-rail-inner { grid-template-columns: repeat(9, 56px); gap: 0; width: max-content; }
+    .pc-avatar { width: 44px; height: 44px; }
+    .pc-role { display: none; }
+
+    /* ticker */
+    .ticker-rail { padding: 0; }
+    .ticker-rail-inner { padding: 0; }
+
+    /* filter bar */
+    .filter-bar { padding: 0 20px; top: 56px; }
+
+    /* feed */
+    .feed { padding: 20px; }
+    .card-half,.card-third,.card-quarter,.card-two-thirds { grid-column: span 12; }
+    .opinion-strip { margin: 20px -20px 0; padding: 0 20px; }
+    .opinion-label { display: none; }
+    .opinion-strip-inner { grid-template-columns: 1fr !important; }
+    .opinion-item { border-right: none; border-bottom: 1px solid var(--line); }
+
+    /* footer */
+    .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+    footer { padding: 32px 20px; }
+
+    /* modal */
+    .modal-panel { width: 100%; }
+    .modal-body { padding: 24px 20px; }
+    .modal-hed { font-size: 26px; }
   }
 </style>
 </head>
@@ -410,7 +446,7 @@
   <div class="hero-sidebar">
     <div class="hero-sidebar-inner">
       <div class="sidebar-label">Also This Issue</div>
-      <div id="sidebar-stories" style="display:contents"></div>
+      <div class="sidebar-stories-grid" id="sidebar-stories"></div>
     </div>
   </div>
 </section>
@@ -493,7 +529,6 @@
 </div>
 
 <script>
-  
 // ═══════════════════════════════════════════════════════
 // CONFIGURATION
 // Replace with your Google Sheet ID once the sheet is set up.
@@ -508,7 +543,7 @@
 //   image_url — publicly accessible image URL (Google Drive public share, Cloudinary, etc.)
 //   body      — full article text; separate paragraphs with a blank line (double newline)
 // ═══════════════════════════════════════════════════════
-const SHEET_ID = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR-AuJPYf1wCj9Qx-5ckPpKgSTNiIjoXQ0j7xtIV3gILwzRldBXB364B8mIX1TMumB_PfcS3702f24H/pub?output=csv';
+const SHEET_ID = 'YOUR_GOOGLE_SHEET_ID_HERE';
 const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
 // ═══════════════════════════════════════════════════════
