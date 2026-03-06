@@ -91,7 +91,8 @@
   .rail-img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; margin-bottom:10px; border-radius:2px; }
 
   /* center hero */
-  .front-center { min-width:0; }
+  .front-center { min-width:0; display:flex; flex-direction:column; }
+  .front-center .hero-image-wrap { flex:1; min-height:300px; }
 
   /* HERO */
   /* ── HERO full-bleed ── */
@@ -102,7 +103,7 @@
   .hero-image-wrap {
     position: relative;
     width: 100%;
-    height: clamp(400px, 52vw, 620px);
+    height: 100%;
     overflow: hidden;
     cursor: pointer;
     display: block;
