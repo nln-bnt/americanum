@@ -911,7 +911,8 @@ function buildInDepth() {
 
 function updateCount() {
   const n = filteredArticles().length;
-  document.getElementById('article-count').textContent = `${n} article${n!==1?'s':''}`;
+  const el = document.getElementById('article-count');
+  if (el) el.textContent = `${n} article${n!==1?'s':''}`;
 }
 
 function filteredArticles() {
