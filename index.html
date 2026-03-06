@@ -642,7 +642,7 @@ async function loadData() {
     const { data, error } = await gazette
       .from('articles')
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('id', { ascending: true });
     if (error) throw error;
     allArticles = Array.isArray(data) ? data.filter(a => a.headline) : DEMO_ARTICLES;
     render();
