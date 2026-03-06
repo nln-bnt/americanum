@@ -568,6 +568,8 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 // ═══════════════════════════════════════════════════════
 // SUPABASE CONFIGURATION
@@ -576,6 +578,8 @@
 // ═══════════════════════════════════════════════════════
 const SUPABASE_URL  = 'https://qqljozruuvtapipltqfk.supabase.co';
 const SUPABASE_ANON = 'sb_publishable_-m72Hie96t8duLysOUB4xg_HFTa4TCs';
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+const gazette = db.schema('gazette');
 
 // ═══════════════════════════════════════════════════════
 // PERSONA MAP — do not edit (matches project spec)
@@ -634,11 +638,11 @@ async function loadData() {
     return;
   }
   try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/articles?select=*&order=created_at.desc`,
-      { headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}`, 'Accept-Profile': 'gazette' } }
-    );
-    const data = await res.json();
+    const { data, error } = await gazette
+      .from('articles')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) throw error;
     allArticles = Array.isArray(data) ? data.filter(a => a.headline) : DEMO_ARTICLES;
     render();
   } catch(e) {
@@ -969,14 +973,14 @@ function formatBody(text) {
 async function loadLikeCount(articleId) {
   if (!articleId || SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL') return;
   try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/likes?article_id=eq.${articleId}&select=id`,
-      { headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}`, 'Prefer': 'count=exact', 'Accept-Profile': 'gazette' } }
-    );
-    const count = parseInt(res.headers.get('Content-Range')?.split('/')[1] || '0');
+    const { count, error } = await gazette
+      .from('likes')
+      .select('id', { count: 'exact', head: true })
+      .eq('article_id', articleId);
+    if (error) throw error;
     ['card','modal'].forEach(ctx => {
       const el = document.getElementById(`like-count-${ctx}-${articleId}`);
-      if (el) el.textContent = count;
+      if (el) el.textContent = count || 0;
     });
   } catch(e) { console.error('like count error', e); }
 }
@@ -987,11 +991,9 @@ async function handleLike(e, articleId) {
   const btns = [`like-card-${articleId}`, `like-modal-${articleId}`].map(id => document.getElementById(id)).filter(Boolean);
   btns.forEach(b => b.classList.add('liked'));
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/likes`, {
-      method: 'POST',
-      headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}`, 'Content-Type': 'application/json', 'Accept-Profile': 'gazette', 'Content-Profile': 'gazette' },
-      body: JSON.stringify({ article_id: articleId })
-    });
+    await gazette
+      .from('likes')
+      .insert({ article_id: articleId });
     loadLikeCount(articleId);
   } catch(e) { console.error('like error', e); }
 }
@@ -1012,11 +1014,9 @@ async function submitReply(articleId) {
     return;
   }
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/replies`, {
-      method: 'POST',
-      headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}`, 'Content-Type': 'application/json', 'Accept-Profile': 'gazette', 'Content-Profile': 'gazette' },
-      body: JSON.stringify({ article_id: articleId, body: text })
-    });
+    await gazette
+      .from('replies')
+      .insert({ article_id: articleId, body: text });
     document.getElementById('reply-text').value = '';
     document.getElementById('reply-sent').style.display = 'inline';
     setTimeout(() => { document.getElementById('reply-sent').style.display = 'none'; }, 3000);
