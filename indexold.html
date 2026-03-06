@@ -505,7 +505,21 @@
       <div class="footer-logo">The Americanum</div>
       <p class="footer-desc">Dispatches from nine nodes of American power. Independent. Unmediated. Unresolved.</p>
     </div>
-    
+    <div class="footer-col">
+      <h4>The Nine</h4>
+      <a href="#">Fang — Silicon Futurist</a>
+      <a href="#">Rohit — Corporate Nationalist</a>
+      <a href="#">Isabella — Humanitarian</a>
+      <a href="#">Jordan — Cultural Liberationist</a>
+      <a href="#">Yasmine — Postcolonial Reformer</a>
+    </div>
+    <div class="footer-col">
+      <h4>&nbsp;</h4>
+      <a href="#">Chad — Reactionary Populist</a>
+      <a href="#">Natasha — Shadow Diplomat</a>
+      <a href="#">Kealoha — Pacific Frontiersman</a>
+      <a href="#">Talon — Indigenous Sovereign</a>
+    </div>
     <div class="footer-col">
       <h4>Project</h4>
       <a href="https://pax.nulus.co" target="_blank">↖ pax.nulus.co</a>
@@ -530,12 +544,21 @@
 
 <script>
 // ═══════════════════════════════════════════════════════
-// SUPABASE CONFIGURATION
-// Paste your project URL and anon key from:
-// supabase.com → your project → Settings → API
+// CONFIGURATION
+// Replace with your Google Sheet ID once the sheet is set up.
+// The sheet must be published to the web (File → Share → Publish to web → Entire document → CSV).
+//
+// Required column headers (row 1):
+//   id | persona | headline | deck | body | topic | date | readtime | image_url | featured | ticker
+//
+//   persona   — lowercase key: fang, yasmine, jordan, chad, rohit, isabella, natasha, talon, kealoha
+//   featured  — write TRUE for the hero/lead article (only one row)
+//   ticker    — short news item text for the ticker bar (leave blank for most rows)
+//   image_url — publicly accessible image URL (Google Drive public share, Cloudinary, etc.)
+//   body      — full article text; separate paragraphs with a blank line (double newline)
 // ═══════════════════════════════════════════════════════
-const SUPABASE_URL  = 'YOUR_SUPABASE_PROJECT_URL';   // e.g. https://xxxx.supabase.co
-const SUPABASE_ANON = 'YOUR_SUPABASE_ANON_KEY';
+const SHEET_ID = 'YOUR_GOOGLE_SHEET_ID_HERE';
+const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
 // ═══════════════════════════════════════════════════════
 // PERSONA MAP — do not edit (matches project spec)
@@ -588,21 +611,26 @@ function buildPersonasRail() {
 // DATA
 // ═══════════════════════════════════════════════════════
 async function loadData() {
-  if (SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL') {
+  if (SHEET_ID === 'YOUR_GOOGLE_SHEET_ID_HERE') {
     allArticles = DEMO_ARTICLES;
     render();
     return;
   }
   try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/articles?select=*&order=created_at.desc`,
-      { headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}` } }
-    );
-    const data = await res.json();
-    allArticles = Array.isArray(data) ? data.filter(a => a.headline) : DEMO_ARTICLES;
+    const res  = await fetch(SHEET_URL);
+    const text = await res.text();
+    const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/)[1]);
+    const cols = json.table.cols.map(c => c.label.toLowerCase().trim());
+    allArticles = json.table.rows
+      .map(row => {
+        const obj = {};
+        cols.forEach((col,i) => { obj[col] = row.c[i] ? (row.c[i].v ?? row.c[i].f ?? '') : ''; });
+        return obj;
+      })
+      .filter(a => a.headline);
     render();
   } catch(e) {
-    console.error('Supabase load error:', e);
+    console.error('Sheet load error:', e);
     allArticles = DEMO_ARTICLES;
     render();
   }
@@ -882,7 +910,7 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); }
 function safeJSON(obj) { return JSON.stringify(obj).replace(/'/g,"&#39;").replace(/"/g,'&quot;'); }
 
 // ═══════════════════════════════════════════════════════
-// DEMO DATA — displays when Supabase is not yet connected
+// DEMO DATA — replace with Google Sheet
 // ═══════════════════════════════════════════════════════
 const DEMO_ARTICLES = [
   { persona:'fang', headline:'Democracy Is Not a Debugging Tool',
