@@ -75,24 +75,6 @@
   .pc-name { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text); }
   .pc-role { font-family:'Space Mono',monospace; font-size:7px; letter-spacing:0.04em; color:var(--text-dimmer); margin-top:2px; }
 
-  /* FRONT PAGE LAYOUT */
-  .front-page { border-bottom:1px solid var(--line2); padding:24px 48px 0; background:var(--bg); }
-  .front-inner { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:240px 1fr 240px; gap:24px; align-items:start; }
-  
-  /* rails */
-  .front-rail { display:flex; flex-direction:column; }
-  .rail-story { padding:18px 0; border-bottom:1px solid var(--line); cursor:pointer; transition:opacity 0.2s; }
-  .rail-story:first-child { border-top:1px solid var(--line); }
-  .rail-story:hover { opacity:0.6; }
-  .rail-kicker { font-family:'Space Mono',monospace; font-size:7px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-dimmer); margin-bottom:7px; display:flex; align-items:center; gap:6px; }
-  .rail-dot { width:4px; height:4px; border-radius:50%; flex-shrink:0; }
-  .rail-hed { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; line-height:1.25; color:var(--text); margin-bottom:8px; }
-  .rail-meta { font-family:'Space Mono',monospace; font-size:7px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-dimmer); }
-  .rail-img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; margin-bottom:10px; border-radius:2px; }
-
-  /* center hero */
-  .front-center { min-width:0; }
-
   /* HERO */
   /* ── HERO full-bleed ── */
   .hero { border-bottom:1px solid var(--line2); padding: 24px 48px 0; background: var(--bg); }
@@ -122,10 +104,10 @@
     position: absolute; inset: 0;
     background: linear-gradient(
       105deg,
-      rgba(8,8,6,0.72) 0%,
-      rgba(8,8,6,0.45) 28%,
-      rgba(8,8,6,0.10) 52%,
-      rgba(8,8,6,0.00) 68%
+      rgba(8,8,6,0.88) 0%,
+      rgba(8,8,6,0.70) 28%,
+      rgba(8,8,6,0.30) 52%,
+      rgba(8,8,6,0.00) 72%
     );
   }
 
@@ -168,14 +150,6 @@
     text-shadow: 0 1px 12px rgba(0,0,0,0.4);
   }
   .hero-byline { display: flex; align-items: center; gap: 11px; }
-  .hero-actions { display:flex; align-items:center; gap:16px; margin-top:14px; }
-  .hero-action-btn { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.55); background:none; border:none; padding:0; cursor:pointer; display:flex; align-items:center; gap:6px; transition:color 0.2s; }
-  .hero-action-btn:hover { color:rgba(255,255,255,0.9); }
-  .hero-action-btn.liked { color:rgba(255,120,120,0.9); }
-  .hero-action-btn svg { width:13px; height:13px; flex-shrink:0; }
-  .hero-image-wrap.no-image .hero-action-btn { color:var(--text-dimmer); }
-  .hero-image-wrap.no-image .hero-action-btn:hover { color:var(--text); }
-  .hero-image-wrap.no-image .hero-action-btn.liked { color:var(--accent); }
   .hero-avatar {
     width: 36px; height: 36px; border-radius: 50%; overflow: hidden;
     border: 2px solid rgba(255,255,255,0.5); flex-shrink: 0;
@@ -257,8 +231,12 @@
   .fb-dot { width:5px; height:5px; border-radius:50%; }
 
   /* FEED */
-  .feed { padding:32px 48px 48px; }
+  .feed { padding:48px; }
   .feed-inner { max-width:1400px; margin:0 auto; }
+  .section-header { display:flex; align-items:center; gap:20px; padding-bottom:12px; border-bottom:1px solid var(--line2); }
+  .section-title { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:var(--text-dim); white-space:nowrap; }
+  .section-line { flex:1; height:1px; background:var(--line); }
+  .section-count { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.1em; color:var(--text-dimmer); }
   .feed-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
 
   /* CARDS */
@@ -299,31 +277,15 @@
   .card-image .card-author span { color:rgba(236,233,224,0.5); }
   .card-image .card-read-time { color:rgba(236,233,224,0.5); }
 
-
-
-  /* LIKES & REPLIES */
-  .card-actions { display:flex; align-items:center; gap:18px; margin-top:10px; }
-  .action-btn { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.1em; color:var(--text-dimmer); background:none; border:none; padding:0; cursor:pointer; display:flex; align-items:center; gap:5px; transition:color 0.2s; }
-  .action-btn:hover { color:var(--text); }
-  .action-btn.liked { color:var(--accent); }
-  .action-btn svg { width:12px; height:12px; flex-shrink:0; }
-
-  /* modal actions */
-  .modal-actions { display:flex; align-items:center; gap:24px; padding:18px 44px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  .modal-action-btn { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.1em; color:var(--text-dimmer); background:none; border:none; padding:0; cursor:pointer; display:flex; align-items:center; gap:7px; transition:color 0.2s; }
-  .modal-action-btn:hover { color:var(--text); }
-  .modal-action-btn.liked { color:var(--accent); }
-  .modal-action-btn svg { width:14px; height:14px; flex-shrink:0; }
-
-  /* reply box */
-  .reply-box { padding:0 44px 32px; display:none; }
-  .reply-box.open { display:block; }
-  .reply-box textarea { width:100%; min-height:80px; background:var(--bg2); border:1px solid var(--line2); padding:12px 14px; font-family:'Newsreader',serif; font-size:15px; color:var(--text); resize:vertical; outline:none; transition:border-color 0.2s; }
-  .reply-box textarea:focus { border-color:var(--text-dim); }
-  .reply-box textarea::placeholder { color:var(--text-dimmer); }
-  .reply-submit { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.16em; text-transform:uppercase; background:var(--text); color:var(--bg); border:none; padding:9px 20px; cursor:pointer; margin-top:8px; transition:opacity 0.2s; }
-  .reply-submit:hover { opacity:0.75; }
-  .reply-sent { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:var(--yasmine); margin-top:10px; display:none; }
+  /* opinion strip */
+  .opinion-strip { border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:0 48px; background:var(--bg2); margin:48px -48px 0; }
+  .opinion-strip-inner { max-width:1400px; margin:0 auto; display:grid; }
+  .opinion-label { padding:28px 28px 28px 0; border-right:1px solid var(--line); display:flex; align-items:center; }
+  .opinion-label-text { font-family:'Playfair Display',serif; font-size:13px; font-style:italic; color:var(--text-dimmer); writing-mode:vertical-rl; transform:rotate(180deg); letter-spacing:0.1em; }
+  .opinion-item { padding:24px 28px; border-right:1px solid var(--line); cursor:pointer; transition:background 0.2s; }
+  .opinion-item:hover { background:var(--bg3); }
+  .opinion-item:last-child { border-right:none; }
+  .opinion-quote { font-family:'Playfair Display',serif; font-style:italic; font-size:17px; line-height:1.45; color:var(--text); margin-bottom:14px; }
 
   /* MODAL */
   .modal-overlay { position:fixed; inset:0; background:rgba(200,198,192,0.7); z-index:200; display:flex; justify-content:flex-end; opacity:0; pointer-events:none; transition:opacity 0.3s; backdrop-filter:blur(4px); }
@@ -415,16 +377,6 @@
     .pc-role { display: none; }
     .persona-chip { gap: 5px; padding: 0 4px; }
 
-    /* front page — stack on mobile */
-    .front-page { padding: 16px 20px 0; }
-    .front-inner { grid-template-columns: 1fr; gap: 0; }
-    .front-rail-left { order: 2; border-top: 1px solid var(--line2); padding-top: 4px; }
-    .front-rail-right { order: 3; border-top: 1px solid var(--line2); padding-top: 4px; }
-    .front-center { order: 1; }
-    .front-rail { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
-    .rail-story:first-child { border-top: none; }
-    .feed { padding: 20px; }
-
     /* ticker — smaller text, wrap allowed */
     .ticker-rail-label { padding: 10px 14px; font-size: 7px; }
     .ticker-label-dot { width: 4px; height: 4px; }
@@ -494,27 +446,23 @@
   </div>
 </div>
 
-<!-- ── FRONT PAGE LAYOUT ── -->
-<section class="front-page">
-  <div class="front-inner">
-
-    <!-- LEFT RAIL: 2 stacked articles -->
-    <div class="front-rail front-rail-left" id="rail-left"></div>
-
-    <!-- CENTER: hero feature -->
-    <div class="front-center">
-      <div class="hero-image-wrap no-image" id="hero-main">
-        <div class="hero-bg" id="hero-bg"></div>
-        <div class="hero-grad"></div>
-        <div class="hero-glass" id="hero-glass">
-          <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dimmer)">Loading…</span>
-        </div>
-      </div>
+<section class="hero">
+  <div class="hero-inner-wrap">
+  <!-- full-bleed image strip -->
+  <div class="hero-image-wrap no-image" id="hero-main">
+    <div class="hero-bg" id="hero-bg"></div>
+    <div class="hero-grad"></div>
+    <div class="hero-glass" id="hero-glass">
+      <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dimmer)">Loading…</span>
     </div>
-
-    <!-- RIGHT RAIL: 2 stacked articles -->
-    <div class="front-rail front-rail-right" id="rail-right"></div>
-
+  </div>
+  </div><!-- /hero-inner-wrap -->
+  <!-- sidebar stories strip -->
+  <div class="hero-sidebar">
+    <div class="hero-sidebar-inner">
+      <div class="sidebar-label">Also This Issue</div>
+      <div class="sidebar-stories-grid" id="sidebar-stories"></div>
+    </div>
   </div>
 </section>
 
@@ -526,11 +474,28 @@
 
 <main class="feed">
   <div class="feed-inner">
+    <div class="section-header">
+      <span class="section-title">Latest Dispatches</span>
+      <div class="section-line"></div>
+      <span class="section-count" id="article-count"></span>
+    </div>
     <div id="main-grid" class="feed-grid">
       <div class="skeleton card card-third"><div class="skel-tag"></div><div class="skel-hed"></div><div class="skel-hed2"></div><div class="skel-foot"></div></div>
       <div class="skeleton card card-third"><div class="skel-tag"></div><div class="skel-hed"></div><div class="skel-hed2"></div><div class="skel-foot"></div></div>
       <div class="skeleton card card-third"><div class="skel-tag"></div><div class="skel-hed"></div><div class="skel-hed2"></div><div class="skel-foot"></div></div>
     </div>
+    <div class="opinion-strip" id="opinion-strip" style="display:none">
+      <div class="opinion-strip-inner" id="opinion-inner">
+        <div class="opinion-label"><span class="opinion-label-text">Opinion</span></div>
+      </div>
+    </div>
+
+    <div class="section-header" id="in-depth-header" style="margin-top:48px;display:none">
+      <span class="section-title">In Depth</span>
+      <div class="section-line"></div>
+    </div>
+    <div id="in-depth-grid" class="feed-grid" style="display:none"></div>
+
   </div>
 </main>
 
@@ -569,8 +534,8 @@
 // Paste your project URL and anon key from:
 // supabase.com → your project → Settings → API
 // ═══════════════════════════════════════════════════════
-const SUPABASE_URL  = 'YOUR_SUPABASE_PROJECT_URL';   // e.g. https://xxxx.supabase.co
-const SUPABASE_ANON = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL  = 'https://qqljozruuvtapipltqfk.supabase.co';   // e.g. https://xxxx.supabase.co
+const SUPABASE_ANON = 'Ysb_publishable_-m72Hie96t8duLysOUB4xg_HFTa4TCs';
 
 // ═══════════════════════════════════════════════════════
 // PERSONA MAP — do not edit (matches project spec)
@@ -631,7 +596,7 @@ async function loadData() {
   try {
     const res = await fetch(
       `${SUPABASE_URL}/rest/v1/articles?select=*&order=created_at.desc`,
-      { headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}`, 'Accept-Profile': 'gazette' } }
+      { headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}` } }
     );
     const data = await res.json();
     allArticles = Array.isArray(data) ? data.filter(a => a.headline) : DEMO_ARTICLES;
@@ -651,9 +616,9 @@ function render() {
   buildHero();
   buildTopicFilters();
   buildGrid();
+  buildOpinionStrip();
+  buildInDepth();
   updateCount();
-  // load like counts for all visible articles
-  allArticles.forEach(a => { if (a.id) loadLikeCount(a.id); });
 }
 
 function buildTicker() {
@@ -710,48 +675,21 @@ function buildHero() {
         <div class="byline-meta">${hero.date||''} · ${hero.readtime||''}</div>
       </div>
     </div>
-    <div class="hero-actions" id="hero-inline-actions">
-      <button class="hero-action-btn" onclick="handleLike(event,${hero.id})" id="like-card-${hero.id}">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-        <span id="like-count-card-${hero.id}">—</span>
-      </button>
-      <button class="hero-action-btn" onclick="openModal(hero);setTimeout(()=>toggleReply(),300)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-        Reply
-      </button>
-    </div>
   `;
-  // hero image click opens modal
-  document.getElementById('hero-glass').onclick = (e) => { if(!e.target.closest('.hero-actions')) openModal(hero); };
-  document.getElementById('hero-bg').onclick = () => openModal(hero);
+  hm.onclick = () => openModal(hero);
 
   const others = allArticles.filter(a=>a!==hero).slice(0,4);
-  function railCard(a) {
+  document.getElementById('sidebar-stories').innerHTML = others.map((a,i) => {
     const sp = PERSONAS[a.persona?.toLowerCase()] || {};
-    return `<div class="rail-story">
-      ${a.image_url ? `<img class="rail-img" src="${a.image_url}" alt="" onclick='openModal(${safeJSON(a)})' style="cursor:pointer">` : ''}
-      <div onclick='openModal(${safeJSON(a)})' style="cursor:pointer">
-        <div class="rail-kicker">
-          <div class="rail-dot" style="background:${sp.color||'var(--text-dimmer)'}"></div>
-          ${sp.name||a.persona} · ${a.topic||''}
-        </div>
-        <div class="rail-hed">${a.headline}</div>
-        <div class="rail-meta">${a.readtime||''}</div>
-      </div>
-      <div class="card-actions">
-        <button class="action-btn" onclick="handleLike(event,${a.id})" id="like-card-${a.id}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-          <span id="like-count-card-${a.id}">—</span>
-        </button>
-        <button class="action-btn" onclick="openModal(${safeJSON(a)});setTimeout(()=>toggleReply(),300)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-          Reply
-        </button>
+    return `<div class="sidebar-story" onclick='openModal(${safeJSON(a)})'>
+      <div class="ss-num">0${i+2}</div>
+      <div class="ss-hed">${a.headline}</div>
+      <div class="ss-byline">
+        <div class="ss-dot" style="background:${sp.color||'var(--text-dimmer)'}"></div>
+        <span class="ss-author">${sp.name||a.persona} — ${a.readtime||''}</span>
       </div>
     </div>`;
-  }
-  document.getElementById('rail-left').innerHTML  = others.slice(0,2).map(railCard).join('');
-  document.getElementById('rail-right').innerHTML = others.slice(2,4).map(railCard).join('');
+  }).join('');
 }
 
 function buildTopicFilters() {
@@ -768,9 +706,7 @@ function buildTopicFilters() {
 }
 
 function buildGrid() {
-  let articles = filteredArticles();
-  // when showing all, skip the hero + 4 rail articles already shown above
-  if (activeFilter.type === 'all') articles = articles.slice(5);
+  const articles = filteredArticles();
   const grid = document.getElementById('main-grid');
   if (!articles.length) {
     grid.innerHTML = `<div style="grid-column:span 12;padding:48px;text-align:center;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dimmer)">No articles found.</div>`;
@@ -803,28 +739,17 @@ function buildGrid() {
       </div>`;
     }
     return `<div class="card ${size}" style="--persona-color:${p.color}"
-         data-persona="${a.persona?.toLowerCase()}" data-topic="${a.topic}">
-      <div onclick='openModal(${safeJSON(a)})' style="flex:1;display:flex;flex-direction:column;cursor:pointer;">
-        <div class="card-tag" style="color:${p.color};border-color:${p.color}">
-          <span>●</span> ${p.name||a.persona} · ${a.topic||''}
-        </div>
-        <h2 class="card-hed">${a.headline}</h2>
-        ${a.deck && !['card-quarter','card-third'].includes(size) ? `<p class="card-deck">${a.deck}</p>` : ''}
-        <div class="card-footer">
-          <div class="card-avatar" style="border-color:${p.color}"><img src="${p.img}" alt=""></div>
-          <div class="card-author">${p.name||a.persona}<span>${p.role||''}</span></div>
-          <span class="card-read-time">${a.readtime||''}</span>
-        </div>
+         data-persona="${a.persona?.toLowerCase()}" data-topic="${a.topic}"
+         onclick='openModal(${safeJSON(a)})'>
+      <div class="card-tag" style="color:${p.color};border-color:${p.color}">
+        <span>●</span> ${p.name||a.persona} · ${a.topic||''}
       </div>
-      <div class="card-actions">
-        <button class="action-btn" onclick="handleLike(event,${a.id})" id="like-card-${a.id}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-          <span id="like-count-card-${a.id}">—</span>
-        </button>
-        <button class="action-btn" onclick="openModal(${safeJSON(a)});setTimeout(()=>toggleReply(),300)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-          Reply
-        </button>
+      <h2 class="card-hed">${a.headline}</h2>
+      ${a.deck && !['card-quarter','card-third'].includes(size) ? `<p class="card-deck">${a.deck}</p>` : ''}
+      <div class="card-footer">
+        <div class="card-avatar" style="border-color:${p.color}"><img src="${p.img}" alt=""></div>
+        <div class="card-author">${p.name||a.persona}<span>${p.role||''}</span></div>
+        <span class="card-read-time">${a.readtime||''}</span>
       </div>
     </div>`;
   }).join('');
@@ -872,28 +797,17 @@ function buildInDepth() {
     const p    = PERSONAS[a.persona?.toLowerCase()] || {};
     const size = sizes[i] || 'card-third';
     return `<div class="card ${size}" style="--persona-color:${p.color}"
-         data-persona="${a.persona?.toLowerCase()}" data-topic="${a.topic}">
-      <div onclick='openModal(${safeJSON(a)})' style="flex:1;display:flex;flex-direction:column;cursor:pointer;">
-        <div class="card-tag" style="color:${p.color};border-color:${p.color}">
-          <span>●</span> ${p.name||a.persona} · ${a.topic||''}
-        </div>
-        <h2 class="card-hed">${a.headline}</h2>
-        ${a.deck && !['card-quarter','card-third'].includes(size) ? `<p class="card-deck">${a.deck}</p>` : ''}
-        <div class="card-footer">
-          <div class="card-avatar" style="border-color:${p.color}"><img src="${p.img}" alt=""></div>
-          <div class="card-author">${p.name||a.persona}<span>${p.role||''}</span></div>
-          <span class="card-read-time">${a.readtime||''}</span>
-        </div>
+         data-persona="${a.persona?.toLowerCase()}" data-topic="${a.topic}"
+         onclick='openModal(${safeJSON(a)})'>
+      <div class="card-tag" style="color:${p.color};border-color:${p.color}">
+        <span>●</span> ${p.name||a.persona} · ${a.topic||''}
       </div>
-      <div class="card-actions">
-        <button class="action-btn" onclick="handleLike(event,${a.id})" id="like-card-${a.id}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-          <span id="like-count-card-${a.id}">—</span>
-        </button>
-        <button class="action-btn" onclick="openModal(${safeJSON(a)});setTimeout(()=>toggleReply(),300)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-          Reply
-        </button>
+      <h2 class="card-hed">${a.headline}</h2>
+      ${a.deck && !['card-quarter','card-third'].includes(size) ? `<p class="card-deck">${a.deck}</p>` : ''}
+      <div class="card-footer">
+        <div class="card-avatar" style="border-color:${p.color}"><img src="${p.img}" alt=""></div>
+        <div class="card-author">${p.name||a.persona}<span>${p.role||''}</span></div>
+        <span class="card-read-time">${a.readtime||''}</span>
       </div>
     </div>`;
   }).join('');
@@ -922,8 +836,6 @@ function setFilter(type, value, btn) {
   if (type==='persona') document.getElementById('chip-'+value)?.classList.add('active-filter');
   buildGrid();
   updateCount();
-  // load like counts for all visible articles
-  allArticles.forEach(a => { if (a.id) loadLikeCount(a.id); });
 }
 
 // ═══════════════════════════════════════════════════════
@@ -960,70 +872,9 @@ function formatBody(text) {
   return text.split(/\n\n+/).filter(Boolean).map(p=>`<p>${p.trim()}</p>`).join('');
 }
 
-// ── LIKES ──
-async function loadLikeCount(articleId) {
-  if (!articleId || SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL') return;
-  try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/likes?article_id=eq.${articleId}&select=id`,
-      { headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}`, 'Prefer': 'count=exact', 'Accept-Profile': 'gazette' } }
-    );
-    const count = parseInt(res.headers.get('Content-Range')?.split('/')[1] || '0');
-    ['card','modal'].forEach(ctx => {
-      const el = document.getElementById(`like-count-${ctx}-${articleId}`);
-      if (el) el.textContent = count;
-    });
-  } catch(e) { console.error('like count error', e); }
-}
-
-async function handleLike(e, articleId) {
-  e.stopPropagation();
-  if (!articleId || SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL') return;
-  const btns = [`like-card-${articleId}`, `like-modal-${articleId}`].map(id => document.getElementById(id)).filter(Boolean);
-  btns.forEach(b => b.classList.add('liked'));
-  try {
-    await fetch(`${SUPABASE_URL}/rest/v1/likes`, {
-      method: 'POST',
-      headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}`, 'Content-Type': 'application/json', 'Accept-Profile': 'gazette', 'Content-Profile': 'gazette' },
-      body: JSON.stringify({ article_id: articleId })
-    });
-    loadLikeCount(articleId);
-  } catch(e) { console.error('like error', e); }
-}
-
-// ── REPLIES ──
-function toggleReply() {
-  const box = document.getElementById('reply-box');
-  if (!box) return;
-  box.classList.toggle('open');
-  if (box.classList.contains('open')) document.getElementById('reply-text')?.focus();
-}
-
-async function submitReply(articleId) {
-  const text = document.getElementById('reply-text')?.value?.trim();
-  if (!text) return;
-  if (SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL') {
-    document.getElementById('reply-sent').style.display = 'inline';
-    return;
-  }
-  try {
-    await fetch(`${SUPABASE_URL}/rest/v1/replies`, {
-      method: 'POST',
-      headers: { 'apikey': SUPABASE_ANON, 'Authorization': `Bearer ${SUPABASE_ANON}`, 'Content-Type': 'application/json', 'Accept-Profile': 'gazette', 'Content-Profile': 'gazette' },
-      body: JSON.stringify({ article_id: articleId, body: text })
-    });
-    document.getElementById('reply-text').value = '';
-    document.getElementById('reply-sent').style.display = 'inline';
-    setTimeout(() => { document.getElementById('reply-sent').style.display = 'none'; }, 3000);
-  } catch(e) { console.error('reply error', e); }
-}
-
 function closeModal() {
   document.getElementById('modal').classList.remove('open');
   document.body.style.overflow = '';
-  // remove dynamically added actions/reply from panel
-  document.querySelector('.modal-actions')?.remove();
-  document.querySelector('.reply-box')?.remove();
 }
 function handleOverlayClick(e) { if (e.target===document.getElementById('modal')) closeModal(); }
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
@@ -1037,26 +888,26 @@ const DEMO_ARTICLES = [
   { persona:'fang', headline:'Democracy Is Not a Debugging Tool',
     deck:'The question is not whether AI will govern. The question is whether the people writing the weights will admit it.',
     body:`The feudal lord owned land. The industrial baron owned machines. The next ruling class owns compute — and unlike land or machines, most people don't even know it's being taken.\n\nI'm not describing a dystopia. I'm describing what's already happening. The architecture of intelligence is being built right now, by a small number of people, according to a small number of assumptions.\n\nLet me be precise. When I talk about compute aristocracy, I'm not talking about who has the best consumer device. I'm talking about who controls the training runs. Who owns the data centers. Who can afford the hundred-million-dollar models. That number is shrinking. The concentration is real and accelerating.`,
-    topic:'Tech', date:'Feb 27, 2026', readtime:'8 min', image_url:'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1400&q=80', featured:'TRUE',
+    topic:'Tech', date:'Feb 27, 2026', readtime:'8 min', image_url:'dragon.png', featured:'TRUE',
     ticker:"Fang's Axis platform clears $2B Series C — Silicon Valley silent" },
   { persona:'chad', headline:"What the Border Looks Like When Nobody's Watching",
     deck:"I drove it myself. Three hundred miles of open ground. Here's what they don't put on the nightly news.",
     body:`I did it last month. Drove from Del Rio to El Paso on the Texas side. Ranch roads, mostly. The kind that don't show up clean on Google Maps.\n\nThe ranchers I talked to aren't ideologues. They're tired. They've been tired for years. They've called the federal government and gotten voicemail.\n\nThat's all. Just an acknowledgment. You'd be amazed how rare it is.`,
-    topic:'Politics', date:'Feb 25, 2026', readtime:'6 min', image_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80', featured:'',
+    topic:'Politics', date:'Feb 25, 2026', readtime:'6 min', image_url:'', featured:'',
     ticker:'Talon leads Senate polling in three-state Great Plains district' },
   { persona:'yasmine', headline:'The Palestinian News Desk That Never Existed',
     deck:"Western media didn't fail to cover the story. It was designed not to.",
     body:`Every major American newsroom has a correspondent in Tel Aviv. Almost none has one stationed in Gaza City. The asymmetry is not accidental. It is structural.\n\nI run a media conglomerate. I understand how these decisions get made. They are made by people who have internalized, often unconsciously, a hierarchy of which lives constitute news.\n\nThis is why I built what I built. The Palestinian news desk that never existed — I intend to build it.`,
-    topic:'Media', date:'Feb 24, 2026', readtime:'7 min', image_url:'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80', featured:'', ticker:'' },
+    topic:'Media', date:'Feb 24, 2026', readtime:'7 min', image_url:'', featured:'', ticker:'' },
   { persona:'jordan', headline:'On Owning vs. Being Owned By the Culture',
     deck:"There's a difference between being celebrated and being exploited. Most Black artists don't know the line until it's too late.",
     body:`I want to talk about the machine. Not the music — the machine that processes the music.\n\nWhat I've been building for the last eight years is a parallel infrastructure. Labels that don't hold masters hostage. Streaming platforms where the royalty math is visible.\n\nPeople call it Black capitalism and use it as a critique. I accept the label.`,
-    topic:'Culture', date:'Feb 26, 2026', readtime:'9 min', image_url:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80', featured:'',
+    topic:'Culture', date:'Feb 26, 2026', readtime:'9 min', image_url:'', featured:'',
     ticker:'Jordan closes $300M acquisition of regional broadcast network' },
   { persona:'rohit', headline:'Price Controls Are a Death Sentence for American Innovation',
     deck:"Every drug that doesn't get made because the margin wasn't there is a patient who doesn't get treated.",
     body:`A new molecular entity costs somewhere between two and three billion dollars to bring from discovery to approval. That number includes the failures, which outnumber the successes by roughly ten to one.\n\nWhen a politician proposes price controls, what they're proposing is a cap on the return that makes that risk worth taking. Reduce the return, and the capital goes elsewhere.`,
-    topic:'Economy', date:'Feb 23, 2026', readtime:'5 min', image_url:'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80', featured:'', ticker:'' },
+    topic:'Economy', date:'Feb 23, 2026', readtime:'5 min', image_url:'', featured:'', ticker:'' },
   { persona:'talon', headline:'The Treaty Is Not a Historical Document',
     deck:'The Fort Laramie Treaty of 1868 is active law. It has never been repealed.',
     body:`People use the word "historical" to mean "resolved." The treaty of 1868 is not resolved.\n\nThe money sits in a trust account, accumulating interest, now worth over a billion dollars. It sits there because money was never the point.\n\nI'm not running for the Senate to join an institution. I'm running to introduce a sovereign foreign policy of the Lakota people into its chambers.`,
