@@ -578,8 +578,7 @@
 // ═══════════════════════════════════════════════════════
 const SUPABASE_URL  = 'https://qqljozruuvtapipltqfk.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFxbGpvenJ1dXZ0YXBpcGx0cWZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzODM2MTAsImV4cCI6MjA4Nzk1OTYxMH0.yQ609PWytN7Q9_kRnUohnnzQPMm8CgEVXxDKO0xgDA4';
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-const gazette = db.schema('gazette');
+let db, gazette;
 
 // ═══════════════════════════════════════════════════════
 // PERSONA MAP — do not edit (matches project spec)
@@ -606,6 +605,8 @@ let activeFilter = { type:'all', value:null };
 // BOOT
 // ═══════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
+  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  gazette = db.schema('gazette');
   document.getElementById('live-date').textContent =
     new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
   buildPersonasRail();
